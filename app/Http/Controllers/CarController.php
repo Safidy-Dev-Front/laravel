@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\RegisterCarRequest;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -58,5 +59,15 @@ class CarController extends Controller
     return view("single-car", [
       "car" => $car
     ]);
+  }
+
+  public function new()
+  {
+    return view('car-new');
+  }
+
+  public function store(RegisterCarRequest $request)
+  {
+    return $request->input();
   }
 }
