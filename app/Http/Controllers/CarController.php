@@ -47,7 +47,7 @@ class CarController extends Controller
 
   public function one(Request $request)
   {
-    $id = $request->query("id");
+    $id = (int) $request->query("id");
 
     foreach ($this->CARS as $item) {
       if($item['id'] === $id) {

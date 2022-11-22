@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CarController;
+use App\Http\Controllers\DriverController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,4 +21,7 @@ Route::get('/', function () {
 
 Route::get('/cars', [CarController::class, 'list'])->name('cars.list');
 Route::get('/car', [CarController::class, 'one'])->name('cars.single');
+Route::get('/drivers', [DriverController::class, 'list'])->name('drivers.list');
+Route::get('/drivers/{id}', [DriverController::class, 'one'])
+  ->where('id', '[1-9]+')->name('driver.single');
 
