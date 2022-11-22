@@ -18,4 +18,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/list', [CarController::class, 'list']);
+Route::get('/cars', [CarController::class, 'list'])->name('cars.list');
+Route::get('/car', [CarController::class, 'one'])->name('cars.single');
+

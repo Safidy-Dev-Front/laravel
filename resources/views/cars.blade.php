@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-  <h2>Page cars</h2>
+  <h2>Our cars</h2>
   <x-cars-list :cars="$cars" />
 </div>
 @endsection
