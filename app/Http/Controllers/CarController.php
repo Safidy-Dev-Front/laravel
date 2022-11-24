@@ -2,62 +2,28 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\RegisterCarRequest;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Str;
+use App\Models\Car;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Http\Requests\RegisterCarRequest;
 
 class CarController extends Controller
 {
-  public function __construct() {
-    $this->CARS = array(
-      [
-        "id" => 1,
-        "name" => "i30",
-        "benchmark" => "Hyundai",
-        "year" => 2015,
-        "color" => "white",
-        "description" => "lorem ipsum dolor sit amet"
-      ],
-      [
-        "id" => 2,
-        "name" => "tiguan",
-        "benchmark" => "volkswagen",
-        "year" => 2011,
-        "color" => "white",
-        "description" => "lorem ipsum dolor sit amet"
-      ],
-      [
-        "id" => 3,
-        "name" => "aircross 5",
-        "benchmark" => "citroen",
-        "year" => 2022,
-        "color" => "black",
-        "description" => "lorem ipsum dolor sit amet"
-      ]
-    );
-  }
-
   public function list()
   {
+    $cars = DB::table('cars')->get()->toArray();
     return view('cars', [
-      "cars" => $this->CARS,
-      "message" => "Lorem ipsum"
+      'cars'=>$cars
     ]);
   }
 
-  public function one(Request $request)
+  public function one(Request $request, string $id)
   {
-    $id = (int) $request->query("id");
-
-    foreach ($this->CARS as $item) {
-      if($item['id'] === $id) {
-        $car = $item;
-      }
-    }
-
-    return view("single-car", [
-      "car" => $car
+    $car = DB::table('cars')->where('id', '=' , $id )->get()->toArray();
+    // $car_item = $car[0];
+    dd($car);
+    return view("single-car",[
+      'car'=> $car
     ]);
   }
 
@@ -68,6 +34,9 @@ class CarController extends Controller
 
   public function store(RegisterCarRequest $request)
   {
-    return $request->input();
+    dd($request);
+    // DB::table('cars')->insert([
+    //   'name'=>
+    // ]);
   }
 }

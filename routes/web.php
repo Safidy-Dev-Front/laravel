@@ -20,11 +20,12 @@ Route::get('/', function () {
 });
 
 Route::get('/cars', [CarController::class, 'list'])->name('cars.list');
-Route::get('/car', [CarController::class, 'one'])->name('cars.single');
+Route::get('/car/{id}', [CarController::class, 'one'])->name('cars.single');
+Route::get('/car/new', [CarController::class, 'new'])->name('cars.new');
+Route::post('/car/store', [CarController::class, 'store'])->name('cars.store');
+
 Route::get('/drivers', [DriverController::class, 'list'])->name('drivers.list');
 Route::get('/drivers/{id}', [DriverController::class, 'one'])
   ->where('id', '[1-9]+')->name('driver.single');
 
-Route::get('/car/new', [CarController::class, 'new'])->name('cars.new');
-Route::post('/car/store', [CarController::class, 'store'])->name('cars.store');
 
