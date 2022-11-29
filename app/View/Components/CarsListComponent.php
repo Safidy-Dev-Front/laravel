@@ -2,6 +2,7 @@
 
 namespace App\View\Components;
 
+use Illuminate\Support\Collection;
 use Illuminate\View\Component;
 
 class CarsListComponent extends Component
@@ -11,7 +12,7 @@ class CarsListComponent extends Component
      *
      * @return void
      */
-    public function __construct(public array $cars)
+    public function __construct(public Collection $cars)
     {
         $this->cars = $cars;
     }

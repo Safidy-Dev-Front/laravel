@@ -9,4 +9,8 @@ class Car extends Model
 {
     use HasFactory;
     protected $guarded = [];
+
+    public function drivers() {
+      return $this->belongsToMany(Driver::class)->using(CarDriver::class);
+    }
 }

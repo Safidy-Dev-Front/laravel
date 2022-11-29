@@ -3,40 +3,37 @@
 namespace App\Http\Controllers;
 
 use App\Models\Car;
+use App\Models\Driver;
+use App\Models\CarDriver;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\URL;
 use App\Http\Requests\RegisterCarRequest;
 
 class CarController extends Controller
 {
   public function list()
   {
-    $cars = DB::table('cars')->get()->toArray();
-    return view('cars', [
-      'cars'=>$cars
-    ]);
+    $cars = Car::all();
+    return view('cars', compact('cars'));
   }
 
   public function one(Request $request, string $id)
   {
-    $car = DB::table('cars')->where('id', '=' , $id )->get()->toArray();
-    // $car_item = $car[0];
-    dd($car);
-    return view("single-car",[
-      'car'=> $car
-    ]);
+    $car = Car::with('drivers')->find($id);
+    return view("single-car", compact('car'));
   }
 
-  public function new()
+  public function create()
   {
-    return view('car-new');
+    $drivers = Driver::all();
+    return view('car', compact('drivers'));
   }
 
   public function store(RegisterCarRequest $request)
   {
-    dd($request);
-    // DB::table('cars')->insert([
-    //   'name'=>
-    // ]);
+    $car = Car::create($request->except('driver_id'));
+    $car->drivers()->attach($request->input('driver_id'));
+
+    return redirect(URL::route('driver.single', ['id' => $car->id]));
   }
 }

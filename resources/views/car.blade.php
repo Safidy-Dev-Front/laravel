@@ -39,6 +39,17 @@
             @enderror
         </div>
 
+        @if(isset($drivers))
+        <div class="row input-group">
+          <label for="">Driver</label>
+          <select name="driver_id" id="">
+            @foreach ($drivers as $driver)
+            <option value="{{$driver->id}}">{{$driver->fullname}}</option>
+            @endforeach
+          </select>
+        </div>
+        @endif
+
         <div class="row input-group">
             <input type="submit" class="col-2 btn btn-primary" value="Submit">
         </div>
